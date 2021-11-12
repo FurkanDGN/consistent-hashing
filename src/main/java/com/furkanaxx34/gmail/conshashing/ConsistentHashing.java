@@ -31,6 +31,9 @@ public class ConsistentHashing {
         if (index < 0)
             index = Math.abs(index) - 1;
 
+        if (index > 0 && index == this.keys.size())
+            index = this.keys.size() - 1;
+
         if (index > 0 && keys.get(index).equals(key)) {
             throw new ArrayStoreException("Collision Detected");
         }
@@ -42,11 +45,12 @@ public class ConsistentHashing {
 
     public void addData(HashMap.Entry<String, Object> data) {
         BigInteger key = hashFunc(data.getKey(), totalSlots);
-        // +1 -> Go to right of index
-        int index = Collections.binarySearch(keys, key) + 1;
+        int index = Collections.binarySearch(keys, key);
 
         if (index < 0)
-            index = Math.abs(index);
+            index = Math.abs(index) - 1;
+        else
+            index++; // +1 -> Go to right of index
 
         if (index == this.keys.size())
             index = this.keys.size() - 1;
