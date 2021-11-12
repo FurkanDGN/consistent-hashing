@@ -70,7 +70,7 @@ public class ConsistentHashing {
     }
 
     private BigInteger hashFunc(String key, int totalSlots) {
-        String sha = Hashing.crc32c()
+        String sha = Hashing.sha256()
                 .hashString(key, StandardCharsets.UTF_8).toString();
 
         return new BigInteger(sha, 16).remainder(BigInteger.valueOf(totalSlots));
