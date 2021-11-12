@@ -40,6 +40,7 @@ public class ConsistentHashing {
 
         this.nodes.add(index, node);
         this.keys.add(index, key);
+        this.keys.sort(BigInteger::compareTo);
         return key;
     }
 
@@ -64,8 +65,9 @@ public class ConsistentHashing {
         BigInteger key = hashFunc(dataKey, totalSlots);
         int index = Collections.binarySearch(keys, key);
 
+        // Binary search returns negative and decrease one when search key is not included in the array.
         if (index < 0)
-            index = Math.abs(index) - 1;
+            index = Math.abs(index + 1);
 
         if (index == this.keys.size())
             index = this.keys.size() - 1;

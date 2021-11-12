@@ -21,12 +21,13 @@ public class Main {
 
         Random random = new Random();
 
-        IntStream.range(0, 3000)
+        int slots = 3000;
+        IntStream.range(0, slots)
                 .forEach(
                         i -> consistentHashing.addData(Map.entry(String.format("player-%s-balance", i), random.nextInt(1000)))
                 );
 
-        IntStream.range(0, 3000)
+        IntStream.range(0, slots)
                 .forEach(
                         i -> consistentHashing.getData(String.format("player-%s-balance", i))
                 );
